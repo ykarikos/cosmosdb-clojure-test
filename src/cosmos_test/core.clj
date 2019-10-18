@@ -7,19 +7,13 @@
            (java.util.concurrent CountDownLatch))
   (:gen-class))
 
-(defn- do-query [client completion-latch]
+(defn- do-query [client collection-link query result-fn completion-latch]
   (let [query-options (-> (FeedOptions.)
                           (.setMaxItemCount (int 10)))
-        observable (.queryDocuments
-                     client
-                     "/dbs/ToDoList/colls/Items"
-                     "SELECT * FROM c"
-                     query-options)]
+        observable (.queryDocuments client collection-link query query-options)]
     (-> observable
         (.subscribe (rx/action [page]
-                               (->> (-> page .getResults)
-                                    (map #(.toJson %))
-                                    println))
+                               (result-fn (-> page .getResults)))
                     (rx/action [e]
                                (.printStackTrace e)
                                (.countDown completion-latch))
@@ -36,7 +30,13 @@
                    (.withConnectionPolicy (ConnectionPolicy/GetDefault))
                    (.withConsistencyLevel ConsistencyLevel/Session)
                    .build)]
-    (do-query client query-completion-latch)
+    (do-query client
+              "/dbs/ToDoList/colls/Items"
+              "SELECT * FROM c"
+              (fn [doc] (->> doc
+                             (map #(.toJson %))
+                             println))
+              query-completion-latch)
     (.await query-completion-latch)
     (.close client)))
 
