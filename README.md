@@ -1,44 +1,35 @@
-# cosmos-test
+# Azure CosmosDB Clojure proof of concept
 
-FIXME: description
+Try out [Azure CosmosDB](https://azure.microsoft.com/en-us/free/cosmos-db/)'s [Java SDK](https://github.com/Azure/azure-cosmosdb-java) on [Clojure](https://clojure.org).
+Uses [RxClojure](https://github.com/ReactiveX/RxClojure) too.
 
-## Installation
+## Setup
 
-Download from http://example.com/FIXME.
+1. Create a new free CosmosDB account in [Azure](https://azure.microsoft.com/en-us/free/cosmos-db/)
+2. Create a new database and container in the account. I used the default database `ToDoList` and container `Items`
+3. Add some data in [Azure Portal](https://portal.azure.com) → CosmosDB → Data explorer
+4. Check your CosmosDB Instance *URI* and *Primary Key* in Azure Portal → CosmosDB → Keys
+5. Run the Clojure program
+6. ???
+7. Profit!
 
 ## Usage
 
-FIXME: explanation
+```
+$ lein run https://your-cosmosdb-account.documents.azure.com:443/" "your-cosmos-primary-key"
+```
 
-    $ java -jar cosmos-test-0.1.0-standalone.jar [args]
+## Helpful Documentation
 
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+- Azure CosmosDB [Java SDK](https://github.com/Azure/azure-cosmosdb-java) 
+- [Java SDK Javadoc](https://azure.github.io/azure-cosmosdb-java/2.4.0/index.html?com/microsoft/azure/cosmosdb/rx/AsyncDocumentClient.html)
+- [Java SDK Example](https://github.com/Azure-Samples/azure-cosmos-db-sql-api-async-java-getting-started/blob/master/azure-cosmosdb-get-started/src/main/java/com/microsoft/azure/cosmosdb/sample/Main.java)
+- [RxJava Javadoc](http://reactivex.io/RxJava/1.x/javadoc/rx/Observable.html#subscribe-rx.functions.Action1-)
+- [Clojure Java Interop](https://clojure.org/reference/java_interop)
+- [RxClojure](https://github.com/ReactiveX/RxClojure)
 
 ## License
 
-Copyright © 2019 FIXME
+Copyright (c) 2019 Yrjö Kari-Koskinen
 
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-http://www.eclipse.org/legal/epl-2.0.
-
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
+Azure CosmosDB Clojure proof of concept source code is licensed with the MIT License, see [LICENSE](LICENSE).

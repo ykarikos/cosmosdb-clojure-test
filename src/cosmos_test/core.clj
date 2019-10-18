@@ -1,7 +1,9 @@
+; Ported the executeSimpleQueryAsyncAndRegisterListenerForResult method to Clojure from the Java example at
+; https://github.com/Azure-Samples/azure-cosmos-db-sql-api-async-java-getting-started/blob/master/azure-cosmosdb-get-started/src/main/java/com/microsoft/azure/cosmosdb/sample/Main.java
 (ns cosmos-test.core
   (:require [rx.lang.clojure.interop :as rx])
   (:import (com.microsoft.azure.cosmosdb ConnectionPolicy ConsistencyLevel FeedOptions)
-           (com.microsoft.azure.cosmosdb.rx AsyncDocumentClient)
+           (com.microsoft.azure.cosmosdb.rx AsyncDocumentClient$Builder)
            (java.util.concurrent CountDownLatch))
   (:gen-class))
 
@@ -28,7 +30,7 @@
 (defn -main
   [uri master-key]
   (let [query-completion-latch (CountDownLatch. 1)
-        client (-> (com.microsoft.azure.cosmosdb.rx.AsyncDocumentClient$Builder.)
+        client (-> (AsyncDocumentClient$Builder.)
                    (.withServiceEndpoint uri)
                    (.withMasterKey master-key)
                    (.withConnectionPolicy (ConnectionPolicy/GetDefault))
